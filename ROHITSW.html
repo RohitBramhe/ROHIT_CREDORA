@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stopwatch V5</title>
+  <style>
+    body { 
+      text-align: center; 
+      font-family: monospace; 
+      margin-top: 70px; 
+    }
+    #time { 
+      font-size: 35px; 
+      margin-bottom: 20px; 
+    }
+    .btns button { 
+      margin: 0 10px; 
+      padding: 10px 20px; 
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Stopwatch</h1>
+<div id="time">00:00:00</div>
+
+<div class="btns">
+  <button onclick="start()">Start</button>
+  <button onclick="stop()">Stop</button>
+  <button onclick="reset()">Reset</button>
+</div>
+
+<script>
+let seconds = 0, minutes = 0, hours = 0;
+let clock = null;
+
+function showTime() {
+  document.getElementById("time").innerText =
+    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function tick() {
+  seconds++;
+  if (seconds === 60) {
+    seconds = 0;
+    minutes++;
+  }
+  if (minutes === 60) {
+    minutes = 0;
+    hours++;
+  }
+  showTime();
+}
+
+function start() {
+  if (!clock) {
+    clock = setInterval(tick, 1000);
+  }
+}
+
+function stop() {
+  clearInterval(clock);
+  clock = null;
+}
+
+function reset() {
+  stop();
+  seconds = minutes = hours = 0;
+  showTime();
+}
+</script>
+
+</body>
+</html>
